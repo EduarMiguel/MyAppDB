@@ -16,7 +16,20 @@ async connect(){
 
     getUsers(res){
         User.find({}, (err, users) => {
+        if(err) throw err;
 
+        res.send( users );
         })
     }
+
+    postUsers(req, res){
+      let user = req.body.users;
+      User.create( user, (err, newUser)=>{
+          if(err) throw err;
+          res.send({newuser:newUser})
+      })
 }
+
+}
+
+exports.controller = new Controller()
